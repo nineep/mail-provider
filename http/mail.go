@@ -25,17 +25,24 @@ func configProcRoutes() {
 		tos := param.MustString(r, "tos")
 		subject := param.MustString(r, "subject")
 		content := param.MustString(r, "content")
-		tos = strings.Replace(tos, ",", ";", -1)
+		//tos = strings.Replace(tos, ",", ";", -1)
+		ms := strings.Split(tos, ",")
 
 		//替换content中的 \r\n 为 <br/>
 		content = strings.Replace(content, "\r\n", "<br/>", -1)
 
 		if cfg.Smtp.Type == "smtp_ssl" {
 			m := gomail.NewMessage()
-			m.SetHeader("From", cfg.Smtp.From)
-			m.SetHeader("To", tos)
-			//m.SetAddressHeader("Cc", "dan@example.com", "Dan")
-			m.SetHeader("Subject", subject)
+			//m.SetHeader("From", cfg.Smtp.From)
+			//m.SetHeader("To", tos)
+			////m.SetAddressHeader("Cc", "dan@example.com", "Dan")
+			//m.SetHeader("Subject", subject)
+			mailHeader := map[string][]string{
+				"From": {cfg.Smtp.From},
+				"To":    ms,
+				"Subject": {subject},
+			}
+			m.SetHeaders(mailHeader)
 			m.SetBody("text/html", content)
 			//m.Attach("/home/Alex/lolcat.jpg")
 

@@ -6,10 +6,10 @@
     },
     "smtp": {
         "type": "smtp_ssl",
-        "addr": "smtp.exmail.qq.com",
-        "port": 465,
-        "username": "",
-        "password": "",
-        "from": ""
+        "addr": "smtp.partner.outlook.cn",
+        "port": 587,
+        "username": "monitor@example.com",
+        "password": "pwd",
+        "from": "monitor@example.com"
     }
 }
